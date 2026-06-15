@@ -37,3 +37,28 @@ The issue is likely inside the Dark Heresy 2nd Edition character sheet folder in
 ### Fork
 
 My fork: https://github.com/Frehmand/roll20-character-sheets
+
+
+---
+
+## Phase II: Reproduce & Plan
+
+### Status
+
+In Progress
+
+### Branch Link
+
+Working branch: https://github.com/Frehmand/roll20-character-sheets/tree/fix-issue-14138
+
+### Environment Setup
+
+I cloned my fork of the Roll20 character sheets repository and created a working branch for issue #14138.
+
+Commands used:
+
+```bash
+git clone https://github.com/Frehmand/roll20-character-sheets.git
+cd roll20-character-sheets
+git checkout -b fix-issue-14138
+git push origin fix-issue-14138
