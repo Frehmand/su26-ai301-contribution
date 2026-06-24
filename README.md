@@ -62,3 +62,67 @@ git clone https://github.com/Frehmand/roll20-character-sheets.git
 cd roll20-character-sheets
 git checkout -b fix-issue-14138
 git push origin fix-issue-14138
+
+
+---
+
+## Phase III: Build
+
+### Implementation Notes
+
+I implemented the first working increment for Roll20 issue #14138 in:
+
+```text
+Dark_Heresy_2ed/DarkHeresy2ed.html
+```
+
+The change adds Unnatural Strength to successful Strength test Degrees of Success.
+
+The Strength roll now calculates:
+
+```text
+normal degrees + ceil(Unnatural Strength / 2)
+```
+
+I also updated the Dark Heresy 2nd Edition roll template so it can display the adjusted successful Degrees of Success while keeping failure detection based on the original result.
+
+### Code Changes
+
+Working branch:
+
+https://github.com/Frehmand/roll20-character-sheets/tree/fix-issue-14138
+
+Implementation commit:
+
+https://github.com/Frehmand/roll20-character-sheets/commit/5d68cfe1a8
+
+Files modified:
+
+```text
+Dark_Heresy_2ed/DarkHeresy2ed.html
+```
+
+### Testing Strategy
+
+I performed the following validation:
+
+* Ran `git diff --check`
+* Confirmed there were no whitespace errors
+* Reviewed the Git diff before committing
+* Confirmed the change only modified the relevant Dark Heresy 2nd Edition HTML file
+* Confirmed failed test display logic was left unchanged
+* Confirmed the commit was pushed successfully to the working branch
+
+Live Roll20 testing is still pending because custom character sheet access was not available on my current Roll20 account. I documented this limitation rather than claiming the change was fully tested in the Roll20 runtime.
+
+### Challenges Faced
+
+The character sheet uses Roll20-specific roll syntax and cannot be fully tested by opening the HTML file in a normal browser.
+
+The main challenge was preserving the original success/failure calculation while adding the Unnatural Characteristic bonus only to successful Degrees of Success. I handled this by keeping the original `degrees` value for determining success or failure and introducing a separate `successdegrees` value for the displayed successful result.
+
+### Current Status
+
+The Strength-specific implementation is complete and pushed as a small testable increment.
+
+Before opening a pull request, the same pattern still needs to be evaluated for the remaining characteristics and ideally tested in a Roll20 custom-sheet environment.
