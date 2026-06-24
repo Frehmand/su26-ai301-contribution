@@ -70,21 +70,34 @@ git push origin fix-issue-14138
 
 ### Implementation Notes
 
-I implemented the first working increment for Roll20 issue #14138 in:
+I implemented the fix for Roll20 issue #14138 in:
 
 ```text
 Dark_Heresy_2ed/DarkHeresy2ed.html
 ```
 
-The change adds Unnatural Strength to successful Strength test Degrees of Success.
+The change adds the appropriate Unnatural Characteristic bonus to the displayed Degrees of Success for successful characteristic tests.
 
-The Strength roll now calculates:
+The calculation used is:
 
 ```text
-normal degrees + ceil(Unnatural Strength / 2)
+normal degrees + ceil(Unnatural Characteristic / 2)
 ```
 
-I also updated the Dark Heresy 2nd Edition roll template so it can display the adjusted successful Degrees of Success while keeping failure detection based on the original result.
+The fix covers all ten characteristics:
+
+* Weapon Skill — `UnWS`
+* Ballistic Skill — `UnBS`
+* Strength — `UnS`
+* Toughness — `UnT`
+* Agility — `UnAg`
+* Intelligence — `UnInt`
+* Perception — `UnPer`
+* Willpower — `UnWP`
+* Fellowship — `UnFel`
+* Influence — `UnInf`
+
+I also updated the Dark Heresy 2nd Edition roll template so it displays the adjusted Degrees of Success for successful tests while preserving the original degree value for failed tests.
 
 ### Code Changes
 
@@ -92,9 +105,11 @@ Working branch:
 
 https://github.com/Frehmand/roll20-character-sheets/tree/fix-issue-14138
 
-Implementation commit:
+Implementation commits:
 
 https://github.com/Frehmand/roll20-character-sheets/commit/5d68cfe1a8
+
+https://github.com/Frehmand/roll20-character-sheets/commit/0cc74a0055
 
 Files modified:
 
@@ -106,23 +121,26 @@ Dark_Heresy_2ed/DarkHeresy2ed.html
 
 I performed the following validation:
 
-* Ran `git diff --check`
-* Confirmed there were no whitespace errors
-* Reviewed the Git diff before committing
-* Confirmed the change only modified the relevant Dark Heresy 2nd Edition HTML file
-* Confirmed failed test display logic was left unchanged
-* Confirmed the commit was pushed successfully to the working branch
+* Ran `git diff --check` with no reported errors
+* Reviewed the complete Git diff before committing
+* Confirmed that all ten characteristic roll buttons reference the correct Unnatural Characteristic attribute
+* Confirmed that the edited roll buttons remain on complete HTML lines
+* Confirmed that the changes only modified the relevant Dark Heresy 2nd Edition HTML file
+* Confirmed that failed-test display logic continues to use the original degree result
+* Confirmed that both implementation commits were pushed successfully to the working branch
 
-Live Roll20 testing is still pending because custom character sheet access was not available on my current Roll20 account. I documented this limitation rather than claiming the change was fully tested in the Roll20 runtime.
+Live Roll20 testing could not be completed because custom character sheet access was not available on my current Roll20 account. I documented this limitation rather than claiming the fix was fully tested in the Roll20 runtime.
 
 ### Challenges Faced
 
 The character sheet uses Roll20-specific roll syntax and cannot be fully tested by opening the HTML file in a normal browser.
 
-The main challenge was preserving the original success/failure calculation while adding the Unnatural Characteristic bonus only to successful Degrees of Success. I handled this by keeping the original `degrees` value for determining success or failure and introducing a separate `successdegrees` value for the displayed successful result.
+The main challenge was preserving the original success-and-failure calculation while adding the appropriate Unnatural Characteristic bonus only to the displayed Degrees of Success for successful tests.
+
+I handled this by keeping the original `degrees` value and introducing a separate `successdegrees` value for the adjusted successful result.
 
 ### Current Status
 
-The Strength-specific implementation is complete and pushed as a small testable increment.
+The implementation is complete for all ten characteristics and has been committed and pushed to the working branch.
 
-Before opening a pull request, the same pattern still needs to be evaluated for the remaining characteristics and ideally tested in a Roll20 custom-sheet environment.
+Static validation passed. The remaining steps are to open the pull request, review automated checks, and respond to any maintainer feedback.
