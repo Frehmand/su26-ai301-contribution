@@ -148,3 +148,37 @@ Static validation passed. The remaining steps are to open the pull request, revi
 ### Pull Request
 
 https://github.com/Roll20/roll20-character-sheets/pull/15219
+
+
+## Phase IV: Submit & Iterate
+
+### Pull Request
+
+**PR Link:**
+https://github.com/Roll20/roll20-character-sheets/pull/15219
+
+**Merged Commit:**
+https://github.com/Roll20/roll20-character-sheets/commit/ca3689d0a7f2a66e25a7967d39378b7c3575ce9f
+
+### PR Description
+
+This pull request fixed Roll20 issue #14138 for the Dark Heresy 2nd Edition character sheet.
+
+The contribution updated successful characteristic tests so the displayed Degrees of Success include half of the appropriate Unnatural Characteristic value, rounded up. The fix covers all ten characteristics: Weapon Skill, Ballistic Skill, Strength, Toughness, Agility, Intelligence, Perception, Willpower, Fellowship, and Influence.
+
+### Maintainer Feedback
+
+The pull request passed all automated GitHub checks and had no merge conflicts.
+
+The PR was accepted and merged by the Roll20 maintainers.
+
+### Status
+
+Merged
+
+### Reflection
+
+This phase helped me complete the full open source contribution cycle. I researched an issue, implemented a fix, validated the changes, opened a pull request, documented my work, and had the contribution accepted by the upstream project.
+
+One important lesson I learned is that open source contribution is not only about writing code. It also requires clear documentation, careful review, professional communication, and patience during the pull request process.
+
