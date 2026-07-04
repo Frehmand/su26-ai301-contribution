@@ -68,6 +68,10 @@ git push origin fix-issue-14138
 
 ## Phase III: Build
 
+### Current Status
+
+**COMPLETED**
+
 ### Implementation Notes
 
 I implemented the fix for Roll20 issue #14138 in:
@@ -141,7 +145,7 @@ I handled this by keeping the original `degrees` value and introducing a separat
 
 ### Current Status
 
-**COMPELETED**
+**COMPLETED**
 
 ### Pull Request
 
