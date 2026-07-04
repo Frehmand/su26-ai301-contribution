@@ -45,7 +45,7 @@ My fork: https://github.com/Frehmand/roll20-character-sheets
 
 ### Status
 
-In Progress
+**COMPLETED**
 
 ### Branch Link
 
@@ -141,9 +141,7 @@ I handled this by keeping the original `degrees` value and introducing a separat
 
 ### Current Status
 
-The implementation is complete for all ten characteristics and has been committed and pushed to the working branch.
-
-Static validation passed. The remaining steps are to open the pull request, review automated checks, and respond to any maintainer feedback.
+**COMPELETED**
 
 ### Pull Request
 
