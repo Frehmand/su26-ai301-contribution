@@ -184,3 +184,63 @@ This phase helped me complete the full open source contribution cycle. I researc
 
 One important lesson I learned is that open source contribution is not only about writing code. It also requires clear documentation, careful review, professional communication, and patience during the pull request process.
 
+
+
+# Contribution 2: tldr-pages
+
+## Phase I: Issue Selection
+
+### Status
+
+Phase I Complete
+
+### Issue
+
+Repository: tldr-pages/tldr
+
+Issue: #23030
+
+Issue Title: Page modification request: grafana-cli
+
+Issue Link: https://github.com/tldr-pages/tldr/issues/23030
+
+### Problem Summary
+
+This issue is about improving the existing `grafana-cli` page in the tldr-pages project.
+
+The current `grafana-cli` page only documents plugin-related commands, even though `grafana-cli` supports broader administrative functionality. Because the page title is `grafana-cli`, users may expect examples for more than only plugin management.
+
+The issue suggests two possible directions: expanding the page with additional common `grafana-cli` commands, or making the current page more clearly focused on plugin management and possibly separating admin-related commands into another page.
+
+### Why I Chose This Issue
+
+I chose this issue because it is open, unassigned, and labeled `help wanted` and `page edit`. That makes it a good fit for a documentation-focused open source contribution.
+
+I also chose it because it is from a different repository than my previous Roll20 contribution. My first contribution involved editing a character sheet, while this issue focuses on command-line documentation. This gives me practice contributing to a different type of open source project.
+
+This issue is also a good fit because it is in English and does not require knowledge of another language. The scope is smaller than a complex code bug because the main task is improving a Markdown documentation page.
+
+### Initial Understanding
+
+My initial understanding is that I will need to locate the existing `grafana-cli` tldr page and compare it with the official Grafana CLI documentation.
+
+The current page appears to focus mostly on plugin commands. I will investigate whether the best solution is to add more common examples from Grafana’s official CLI documentation or to clarify that the current page is specifically focused on plugin management.
+
+I will need to follow the tldr-pages style, including short descriptions, concise examples, and correct command placeholder formatting.
+
+### Expected Challenges
+
+The main challenge will be choosing examples that are useful, accurate, and common enough for a tldr page.
+
+Another challenge will be keeping the page concise. The tldr-pages project is not meant to copy full documentation, so I will need to select only practical examples that help users quickly understand the command.
+
+I will also need to make sure any examples come from the official Grafana documentation and match the common platform listed in the issue.
+
+### Next Steps
+
+For Phase II, I will read the tldr-pages contribution guidelines, find the existing `grafana-cli` page, and review the official Grafana CLI documentation.
+
+Then I will identify whether the page should be expanded with broader examples or narrowed to plugin management before making any changes.
+
+
+ge should be expanded with broader examples or narrowed to plugin management before making any changes.
