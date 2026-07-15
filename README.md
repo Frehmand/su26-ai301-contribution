@@ -244,3 +244,119 @@ Then I will identify whether the page should be expanded with broader examples o
 
 
 ge should be expanded with broader examples or narrowed to plugin management before making any changes.
+
+## Phase II: Research
+
+### Status
+
+Phase II Complete
+
+### Repository
+
+tldr-pages/tldr
+
+### Issue
+
+Issue #23030 — Page modification request: grafana-cli
+
+Issue Link: https://github.com/tldr-pages/tldr/issues/23030
+
+### Research Summary
+
+For Phase II, I researched the issue, the existing `grafana-cli` tldr page, the tldr-pages contribution expectations, and the official Grafana CLI documentation.
+
+The issue explains that the current `grafana-cli` page only documents plugin-related commands, even though the command supports broader administrative functionality. Because of that, users may expect the page to include more general Grafana CLI examples.
+
+I reviewed the existing page at:
+
+```text
+pages/common/grafana-cli.md
+```
+
+The page was already in the correct `common` platform directory and linked to the official Grafana CLI documentation. However, the examples were limited to plugin installation, update, removal, and listing.
+
+I also reviewed the official Grafana CLI documentation and identified a few broader examples that would still keep the tldr page concise, including help, version, plugin directory override, and resetting the admin password.
+
+### Implementation Plan
+
+My plan for Phase III was to make a small documentation-focused edit to `pages/common/grafana-cli.md`.
+
+The goal was to keep the page concise while making it better match the page description, “Administer Grafana.”
+
+I planned to:
+
+* Add examples for displaying help and version information
+* Keep useful plugin examples
+* Add an example for using a custom plugin directory
+* Add an admin example for resetting the admin password
+* Avoid turning the page into a full manual
+* Validate the Markdown and Git diff before committing
+
+### Expected Challenges
+
+The main challenge was choosing examples that were broad enough to address the issue but still short enough for a tldr page.
+
+Another challenge was making sure the change followed the repository’s style: short descriptions, simple command examples, and correct placeholder formatting.
+
+## Phase III: Build
+
+### Status
+
+Phase III Complete
+
+### Implementation Summary
+
+I implemented the documentation update for the `grafana-cli` tldr page.
+
+The modified file was:
+
+```text
+pages/common/grafana-cli.md
+```
+
+The updated page now includes examples for:
+
+* Displaying help
+* Displaying the version
+* Installing one or more plugins
+* Installing a plugin with a custom plugin directory
+* Listing installed plugins
+* Resetting the admin password
+
+This keeps the page concise while making it better reflect broader Grafana CLI usage.
+
+### Branch
+
+```text
+grafana-cli-page-update
+```
+
+### Commit
+
+```text
+f0723ed1b
+```
+
+### Pull Request
+
+https://github.com/tldr-pages/tldr/pull/23202
+
+### Validation
+
+I performed the following checks before opening the pull request:
+
+* Ran `git diff --check`
+* Reviewed the modified Markdown file
+* Confirmed only `pages/common/grafana-cli.md` was changed
+* Confirmed the page remained in the correct `common` platform directory
+* Confirmed the page still links to the official Grafana CLI documentation
+* Signed the required Contributor License Agreement
+* Confirmed all required GitHub checks passed, including CI, Codespell, PR Labeler, and CLA
+* Confirmed the branch was pushed successfully to my fork
+
+### Current Status
+
+The pull request has been opened and submitted to the upstream tldr-pages repository for review.
+
+Status: Awaiting review
+
