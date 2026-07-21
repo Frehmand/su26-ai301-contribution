@@ -763,5 +763,93 @@ All required GitHub checks have passed.
 Current PR status:
 
 ```text
-Awaiting maintainer review
+reviwed 
 ```
+
+## Phase IV: Submit & Iterate
+
+### Status
+
+Phase IV Complete
+
+### Pull Request
+
+PR Link: https://github.com/tldr-pages/tldr/pull/23202
+
+PR Status: Closed without merge
+
+### PR Summary
+
+This pull request updated the `grafana-cli` tldr page so it better reflected broader Grafana CLI usage instead of only plugin-related commands.
+
+The PR added examples for displaying help, displaying the version, installing plugins, using a custom plugin directory, listing installed plugins, and resetting the admin password.
+
+### Issue Reference
+
+Issue: #23030 — Page modification request: grafana-cli
+
+Issue Link: https://github.com/tldr-pages/tldr/issues/23030
+
+The PR description used:
+
+```text
+Closes #23030
+```
+
+### Acceptance Checklist
+
+The project’s pull request checklist was completed in the PR description:
+
+* The page was in the correct platform directory: `common`
+* The page description kept its link to official documentation
+* The page followed the content guidelines
+* The page followed the style guide
+* The PR modified fewer than 5 pages
+* The PR was authored by me and human-reviewed
+* The PR title followed the project’s recommended style
+
+### Validation
+
+Before opening the PR, I ran:
+
+```bash
+git diff --check
+```
+
+This completed with no output, meaning no whitespace errors were detected.
+
+After opening the PR, the required GitHub checks passed:
+
+* CI passed
+* Codespell passed
+* PR Labeler passed
+* CLA passed after I corrected my Git author email and signed the Contributor License Agreement
+
+### Maintainer Feedback Log
+
+* PR opened: https://github.com/tldr-pages/tldr/pull/23202
+* The CLA check initially remained pending because my commit author email had a typo.
+* I corrected my Git author email, amended the commit, force-pushed safely with `--force-with-lease`, signed the CLA, and confirmed all checks passed.
+* The PR was later closed by maintainer @Managor without being merged.
+* No specific code review comments or requested changes were provided on the PR page.
+* I followed up politely by asking whether the preferred approach was to keep the page plugin-focused or create a separate admin-related page.
+
+### Current Outcome
+
+The PR was submitted to the upstream repository, passed all required checks, and was reviewed/closed by a maintainer.
+
+Final status:
+
+```text
+Closed without merge
+```
+
+### Learnings and Reflections
+
+This contribution taught me that a PR can be technically valid and pass all checks but still not be merged. Open source maintainers may close a PR because they prefer a different product direction, want a smaller scope, or do not think the change matches the project’s current needs.
+
+Technically, I learned how to update a tldr documentation page, follow a project-specific PR checklist, fix a CLA issue, amend a commit author, and safely force-push with `--force-with-lease`.
+
+If I did this again, I would ask a clarifying question on the issue before implementing the change. Since the issue suggested two possible directions, I should have asked whether maintainers preferred expanding the existing `grafana-cli` page or creating/scoping a separate page before coding.
+
+This was still a useful open source contribution cycle because I selected an issue, researched it, implemented a focused change, opened a real upstream PR, passed all required checks, handled a CLA problem, and documented the final maintainer outcome honestly.
