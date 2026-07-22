@@ -51,6 +51,14 @@ My fork: https://github.com/Frehmand/roll20-character-sheets
 
 Working branch: https://github.com/Frehmand/roll20-character-sheets/tree/fix-issue-14138
 
+### Repository and Issue
+
+Repository: Roll20/roll20-character-sheets
+
+Issue: #14138
+
+Issue link: https://github.com/Roll20/roll20-character-sheets/issues/14138
+
 ### Environment Setup
 
 I cloned my fork of the Roll20 character sheets repository and created a working branch for issue #14138.
@@ -62,7 +70,225 @@ git clone https://github.com/Frehmand/roll20-character-sheets.git
 cd roll20-character-sheets
 git checkout -b fix-issue-14138
 git push origin fix-issue-14138
+```
 
+My setup approach was:
+
+* Fork the upstream Roll20 character sheets repository
+* Clone my fork locally
+* Create a focused working branch named for the issue
+* Work only inside the Dark Heresy 2nd Edition sheet folder
+* Inspect the existing roll formulas and roll template behavior
+* Validate changes through Git diff review and GitHub checks
+
+### Environment Setup Challenges
+
+One challenge was that the Roll20 character sheets repository contains many different game systems. I needed to avoid editing unrelated sheets. I resolved this by working only in:
+
+```text
+Dark_Heresy_2ed/DarkHeresy2ed.html
+```
+
+Another challenge was that Roll20 character sheets cannot be fully tested by opening the HTML file in a normal browser. Roll20 uses custom roll syntax, inline roll references, and roll templates that depend on the Roll20 sheet engine. I handled this by carefully reviewing the formula changes, running Git checks, and documenting that live custom-sheet testing was not available with my Roll20 account access.
+
+### Reproduction Steps
+
+I reproduced the issue by inspecting the Dark Heresy 2nd Edition sheet logic.
+
+Steps another person can follow:
+
+1. Open the Roll20 character sheets repository:
+
+```text
+https://github.com/Roll20/roll20-character-sheets
+```
+
+2. Open the Dark Heresy 2nd Edition sheet file:
+
+```text
+Dark_Heresy_2ed/DarkHeresy2ed.html
+```
+
+3. Search for the Strength roll button:
+
+```text
+name="roll_S"
+```
+
+4. Review the original Degrees of Success calculation in the roll button.
+
+5. Search for the Unnatural Strength attribute:
+
+```text
+UnS
+```
+
+6. Notice that the original successful Strength roll did not add half of Unnatural Strength, rounded up, to the displayed Degrees of Success.
+
+7. Repeat the same review for the other characteristic roll buttons:
+
+```text
+roll_WS
+roll_BS
+roll_T
+roll_Ag
+roll_Int
+roll_Per
+roll_WP
+roll_Fel
+roll_Inf
+```
+
+8. Review the roll template success and failure sections to confirm that successful and failed results are displayed separately.
+
+### Expected Behavior
+
+When a characteristic test succeeds, the displayed Degrees of Success should include the matching Unnatural Characteristic bonus.
+
+The expected calculation is:
+
+```text
+normal degrees + ceil(Unnatural Characteristic / 2)
+```
+
+For example, a successful Strength test should include:
+
+```text
+normal degrees + ceil(UnS / 2)
+```
+
+### Actual Behavior
+
+The original sheet displayed only the normal Degrees of Success.
+
+It did not add the matching Unnatural Characteristic bonus to successful characteristic tests. This meant that characters with Unnatural Strength, Unnatural Toughness, or other Unnatural Characteristics did not receive the correct displayed Degrees of Success.
+
+### Specific File Involved
+
+The main file involved was:
+
+```text
+Dark_Heresy_2ed/DarkHeresy2ed.html
+```
+
+The relevant parts of the file were:
+
+* Characteristic roll buttons
+* The `dh2ed` roll template success display
+* The `dh2ed` roll template failure display
+
+No unrelated files were needed for the fix.
+
+### Root Cause
+
+The root cause was that the original roll buttons only passed the normal `degrees` value to the roll template.
+
+That original `degrees` value was still needed because it controlled the success and failure logic. However, it did not include the extra Degrees of Success from Unnatural Characteristics. Since there was no separate adjusted success value, the sheet could not display the correct successful Degrees of Success for characters with Unnatural Characteristics.
+
+### UMPIRE Plan
+
+#### Understand
+
+I read issue #14138 and identified the reported bug: Unnatural Characteristic bonuses were not being added to successful Degrees of Success.
+
+I inspected `Dark_Heresy_2ed/DarkHeresy2ed.html` and focused on the characteristic roll buttons and the `dh2ed` roll template.
+
+#### Match
+
+I matched the issue to the characteristic roll button pattern in the file. Each characteristic roll button calculated normal degrees and passed values into the roll template.
+
+A representative example was:
+
+```text
+name="roll_S"
+```
+
+I also matched the display behavior to the roll template. The template already separated successful and failed results, which meant I could add adjusted success display without changing failure display.
+
+#### Plan
+
+My plan was to keep the original `degrees` value unchanged and introduce a separate `successdegrees` value for successful tests.
+
+The original `degrees` value would still be used for success/failure logic. The new `successdegrees` value would only affect what is displayed when the roll succeeds.
+
+The planned formula was:
+
+```text
+successdegrees = normal degrees + ceil(Unnatural Characteristic / 2)
+```
+
+I planned to update all ten direct characteristic roll buttons:
+
+* Weapon Skill → `UnWS`
+* Ballistic Skill → `UnBS`
+* Strength → `UnS`
+* Toughness → `UnT`
+* Agility → `UnAg`
+* Intelligence → `UnInt`
+* Perception → `UnPer`
+* Willpower → `UnWP`
+* Fellowship → `UnFel`
+* Influence → `UnInf`
+
+#### Implement
+
+The implementation would update the roll buttons so each one passed a `successdegrees` value into the roll template.
+
+The roll template would then display `successdegrees` on successful tests when it exists, while preserving the original `degrees` value for failed tests.
+
+#### Review
+
+Before committing, I planned to review:
+
+```bash
+git diff -- DarkHeresy2ed.html
+```
+
+I would confirm:
+
+* Only the intended file changed
+* Each characteristic used the correct Unnatural Characteristic attribute
+* The roll template success display used `successdegrees`
+* The failure display logic was not changed
+* No duplicate `</button>` tags were accidentally added
+* Each edited button remained on a complete HTML line
+
+#### Evaluate
+
+I planned to validate the change by running:
+
+```bash
+git diff --check
+```
+
+I also planned to review the branch diff on GitHub and confirm that automated checks passed after opening the pull request.
+
+### Edge Cases Considered
+
+I considered these edge cases:
+
+* Failed tests should not use `successdegrees`.
+* Characters without an Unnatural Characteristic should not receive an incorrect extra bonus.
+* Each characteristic must reference the correct Unnatural attribute.
+* Strength should use `UnS`, not a generic value.
+* Weapon Skill and Ballistic Skill should use `UnWS` and `UnBS`.
+* Influence should use `UnInf`.
+* The roll template should still display normal degrees when `successdegrees` is not provided.
+* The fix should not change unrelated skill rolls or non-characteristic rolls.
+
+### Final Phase II Plan
+
+The final Phase III plan was:
+
+1. Edit `Dark_Heresy_2ed/DarkHeresy2ed.html`.
+2. Add `successdegrees` to the direct characteristic roll buttons.
+3. Update the roll template success display to prefer `successdegrees` when available.
+4. Preserve the original failure display logic.
+5. Review the full diff.
+6. Run `git diff --check`.
+7. Commit the changes in small, meaningful commits.
+8. Push the branch to my fork.
+9. Open a pull request to the upstream Roll20 repository.
 
 ---
 
@@ -72,13 +298,45 @@ git push origin fix-issue-14138
 
 **COMPLETED**
 
-### Implementation Notes
+### Implementation Summary
 
-I implemented the fix for Roll20 issue #14138 in:
+I implemented the fix for Roll20 issue #14138 in the Dark Heresy 2nd Edition character sheet.
+
+Modified file:
 
 ```text
 Dark_Heresy_2ed/DarkHeresy2ed.html
 ```
+
+Working branch:
+
+```text
+fix-issue-14138
+```
+
+Pull request:
+
+```text
+https://github.com/Roll20/roll20-character-sheets/pull/15219
+```
+
+Merged commit:
+
+```text
+https://github.com/Roll20/roll20-character-sheets/commit/ca3689d0a7f2a66e25a7967d39378b7c3575ce9f
+```
+
+### Key Commits
+
+```text
+5d68cfe1a8 — Add Unnatural Strength to successful test degrees
+```
+
+```text
+0cc74a0055 — Add Unnatural bonuses to characteristic test degrees
+```
+
+### What Changed
 
 The change adds the appropriate Unnatural Characteristic bonus to the displayed Degrees of Success for successful characteristic tests.
 
@@ -88,52 +346,129 @@ The calculation used is:
 normal degrees + ceil(Unnatural Characteristic / 2)
 ```
 
+The implementation added a separate `successdegrees` value instead of replacing the original `degrees` value.
+
+This was important because the original `degrees` value still controls success and failure behavior. The new `successdegrees` value is used only for displaying successful results.
+
+### Characteristics Covered
+
 The fix covers all ten characteristics:
 
-* Weapon Skill — `UnWS`
-* Ballistic Skill — `UnBS`
-* Strength — `UnS`
-* Toughness — `UnT`
-* Agility — `UnAg`
-* Intelligence — `UnInt`
-* Perception — `UnPer`
-* Willpower — `UnWP`
-* Fellowship — `UnFel`
-* Influence — `UnInf`
+* Weapon Skill → `UnWS`
+* Ballistic Skill → `UnBS`
+* Strength → `UnS`
+* Toughness → `UnT`
+* Agility → `UnAg`
+* Intelligence → `UnInt`
+* Perception → `UnPer`
+* Willpower → `UnWP`
+* Fellowship → `UnFel`
+* Influence → `UnInf`
 
-I also updated the Dark Heresy 2nd Edition roll template so it displays the adjusted Degrees of Success for successful tests while preserving the original degree value for failed tests.
+### Diff Scope
 
-### Code Changes
-
-Working branch:
-
-https://github.com/Frehmand/roll20-character-sheets/tree/fix-issue-14138
-
-Implementation commits:
-
-https://github.com/Frehmand/roll20-character-sheets/commit/5d68cfe1a8
-
-https://github.com/Frehmand/roll20-character-sheets/commit/0cc74a0055
-
-Files modified:
+The final implementation was scoped to one file:
 
 ```text
 Dark_Heresy_2ed/DarkHeresy2ed.html
 ```
 
-### Testing Strategy
+The diff included:
 
-I performed the following validation:
+* Updating characteristic roll buttons
+* Adding `successdegrees` values for successful tests
+* Updating the roll template success display
+* Preserving failure behavior
+* Avoiding unrelated formatting changes
+* Avoiding changes to other character sheets
 
-* Ran `git diff --check` with no reported errors
-* Reviewed the complete Git diff before committing
-* Confirmed that all ten characteristic roll buttons reference the correct Unnatural Characteristic attribute
-* Confirmed that the edited roll buttons remain on complete HTML lines
-* Confirmed that the changes only modified the relevant Dark Heresy 2nd Edition HTML file
-* Confirmed that failed-test display logic continues to use the original degree result
-* Confirmed that both implementation commits were pushed successfully to the working branch
+No unrelated files, debug code, or commented-out code were included.
 
-Live Roll20 testing could not be completed because custom character sheet access was not available on my current Roll20 account. I documented this limitation rather than claiming the fix was fully tested in the Roll20 runtime.
+### Testing and Validation
+
+Because this change was in a Roll20 character sheet, normal browser testing was not enough. Roll20 roll buttons and roll templates depend on the Roll20 sheet engine.
+
+I did not add a new automated unit test because this repository’s character sheet contribution model does not provide a normal unit-test file for this sheet’s roll-template behavior. The change was validated through static review, Git checks, manual formula review, and GitHub automated checks.
+
+I ran:
+
+```bash
+git diff --check
+```
+
+This passed with no reported whitespace errors.
+
+I also manually reviewed the diff and confirmed:
+
+* Only `Dark_Heresy_2ed/DarkHeresy2ed.html` was modified.
+* Each characteristic used the correct Unnatural Characteristic attribute.
+* Strength used `UnS`.
+* Weapon Skill used `UnWS`.
+* Ballistic Skill used `UnBS`.
+* Toughness used `UnT`.
+* Agility used `UnAg`.
+* Intelligence used `UnInt`.
+* Perception used `UnPer`.
+* Willpower used `UnWP`.
+* Fellowship used `UnFel`.
+* Influence used `UnInf`.
+* Failed-test display logic remained unchanged.
+* Edited button lines remained complete and were not broken by accidental line wrapping.
+* Duplicate auto-inserted `</button>` tags were removed when necessary.
+
+### Manual Test Cases Reviewed
+
+I manually reviewed these logical test cases:
+
+1. Successful Strength test with Unnatural Strength:
+
+```text
+Expected: displayed success degrees include normal degrees + ceil(UnS / 2)
+```
+
+2. Successful Toughness test with Unnatural Toughness:
+
+```text
+Expected: displayed success degrees include normal degrees + ceil(UnT / 2)
+```
+
+3. Successful Weapon Skill test with Unnatural Weapon Skill:
+
+```text
+Expected: displayed success degrees include normal degrees + ceil(UnWS / 2)
+```
+
+4. Successful Ballistic Skill test with Unnatural Ballistic Skill:
+
+```text
+Expected: displayed success degrees include normal degrees + ceil(UnBS / 2)
+```
+
+5. Failed characteristic test:
+
+```text
+Expected: failure display still uses the original degrees value
+```
+
+6. Characteristic without a meaningful Unnatural bonus:
+
+```text
+Expected: no unrelated characteristic bonus is applied
+```
+
+### Existing Test Suite / Project Checks
+
+I did not run a full local Roll20 runtime test because custom character sheet testing was not available with my Roll20 account access.
+
+I did rely on:
+
+* `git diff --check`
+* Full manual diff review
+* GitHub pull request checks
+* Maintainer review
+* Final upstream merge
+
+The pull request passed repository checks and was accepted/merged by the Roll20 maintainers.
 
 ### Challenges Faced
 
@@ -143,6 +478,20 @@ The main challenge was preserving the original success-and-failure calculation w
 
 I handled this by keeping the original `degrees` value and introducing a separate `successdegrees` value for the adjusted successful result.
 
+Another challenge was editing long HTML button lines safely. VS Code sometimes tried to auto-close button tags, so I checked each edited section and removed duplicate closing tags when needed.
+
+### Engineering Judgment
+
+I intentionally kept the solution scoped to:
+
+```text
+Dark_Heresy_2ed/DarkHeresy2ed.html
+```
+
+I also chose to preserve the original `degrees` value because it was already used by the template to determine success and failure. Adding `successdegrees` was safer than rewriting the existing success/failure calculation.
+
+I first implemented the Strength-specific change as a smaller increment, then expanded the same pattern to all remaining characteristics after reviewing the result. This reduced the risk of making a large unreviewed change all at once.
+
 ### Current Status
 
 **COMPLETED**
@@ -150,6 +499,12 @@ I handled this by keeping the original `degrees` value and introducing a separat
 ### Pull Request
 
 https://github.com/Roll20/roll20-character-sheets/pull/15219
+
+Final status:
+
+```text
+Merged
+```
 
 
 ## Phase IV: Submit & Iterate
