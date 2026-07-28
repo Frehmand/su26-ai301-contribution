@@ -1216,3 +1216,82 @@ Technically, I learned how to update a tldr documentation page, follow a project
 If I did this again, I would ask a clarifying question on the issue before implementing the change. Since the issue suggested two possible directions, I should have asked whether maintainers preferred expanding the existing `grafana-cli` page or creating/scoping a separate page before coding.
 
 This was still a useful open source contribution cycle because I selected an issue, researched it, implemented a focused change, opened a real upstream PR, passed all required checks, handled a CLA problem, and documented the final maintainer outcome honestly.
+
+
+
+
+# Contribution 3: BetterGovPH
+
+## Phase I: Issue Selection
+
+### Status
+
+Phase I Complete
+
+### Repository
+
+Repository Name: bettergovph/bettergov
+
+Repository Link: https://github.com/bettergovph/bettergov
+
+My Fork: https://github.com/Frehmand/bettergov
+
+### Issue Selected
+
+Issue Number: #687
+
+Issue Title: [TASK]: Inspect Tax links
+
+Issue Link: https://github.com/bettergovph/bettergov/issues/687
+
+### Issue Status at Selection
+
+At the time I selected this issue, it was:
+
+- Open
+- Unassigned
+- Labeled `good first issue`
+- Labeled `enhancement`
+- Listed as having no comments
+- Not connected to an existing open pull request from another contributor
+- Part of a TypeScript project
+- Part of a maintained repository with contribution documentation
+
+### Problem Summary
+
+The BetterGovPH project helps users find Philippine government services and information in a clearer and more usable way. The selected issue asks contributors to inspect the Tax links. This matters because tax-related government links need to be accurate and easy to access. If a tax link is broken, outdated, redirected to the wrong place, duplicated, or unclear, users may not be able to reach the correct government service.
+
+This issue is a focused link-inspection task. The goal is not to rewrite a large part of the project. The goal is to locate the Tax-related links, check whether they still work correctly, and make a small update if a broken, outdated, or unclear link is found.
+
+### Why I Chose This Issue
+
+I chose this issue because it fits my current skills and learning goals. The main skills involved are Git, GitHub, reading a new project structure, searching a codebase, checking links, documenting results, and making a small focused pull request.
+
+This is a good third contribution because it is in a different repository from my earlier Roll20 and tldr-pages work. It gives me practice joining a new project, reading its documentation, and contributing to a public-service project where accuracy matters.
+
+I also chose this issue because it is beginner-friendly but still useful. Link inspection may look simple, but it requires careful checking. I need to avoid guessing, confirm the correct Tax-related files, test the links, and document what I changed.
+
+### Initial Understanding
+
+My initial understanding is that the project contains government service links grouped by category. Since this issue is about Tax links, I expect there may be a data file, route, page, or service-list entry that stores Tax-related links.
+
+The likely solution is to:
+
+1. Search the repository for Tax-related terms.
+2. Locate the files that contain Tax service links.
+3. Inspect each Tax link manually.
+4. Check whether the links are reachable, current, and clearly labeled.
+5. Update only the Tax-related entries that need correction.
+6. Keep the change small and easy for maintainers to review.
+
+### Specific Files or Modules Likely Involved
+
+I have not inspected the full repository yet, so I will confirm the exact files in Phase II. Based on the issue title and the repository structure, the likely areas involved are:
+
+```text
+src/
+public/
+docs/
+data or content files that store service links
+Tax-related service listing files
+Tax-related page or route files
