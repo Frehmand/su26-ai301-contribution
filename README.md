@@ -1219,7 +1219,6 @@ This was still a useful open source contribution cycle because I selected an iss
 
 
 
-
 # Contribution 3: BetterGovPH
 
 ## Phase I: Issue Selection
@@ -1252,28 +1251,27 @@ At the time I selected this issue, it was:
 - Unassigned
 - Labeled `good first issue`
 - Labeled `enhancement`
-- Listed as having no comments
 - Not connected to an existing open pull request from another contributor
-- Part of a TypeScript project
 - Part of a maintained repository with contribution documentation
+- Appropriate for a focused link-inspection contribution
 
 ### Problem Summary
 
-The BetterGovPH project helps users find Philippine government services and information in a clearer and more usable way. The selected issue asks contributors to inspect the Tax links. This matters because tax-related government links need to be accurate and easy to access. If a tax link is broken, outdated, redirected to the wrong place, duplicated, or unclear, users may not be able to reach the correct government service.
+The BetterGovPH project helps users find Philippine government services and information in a clearer and more usable way. The selected issue asks contributors to inspect the Tax links. This matters because tax-related government links need to be accurate and easy to access. If a tax link is broken, outdated, redirected to the wrong place, duplicated, unclear, or categorized incorrectly, users may not be able to reach the correct government service.
 
-This issue is a focused link-inspection task. The goal is not to rewrite a large part of the project. The goal is to locate the Tax-related links, check whether they still work correctly, and make a small update if a broken, outdated, or unclear link is found.
+This issue is a focused link-inspection and data-quality task. The goal is not to rewrite a large part of the project. The goal is to locate the Tax-related links, check whether they still work correctly, and make a small update if a broken, outdated, unclear, or incorrectly categorized entry is found.
 
 ### Why I Chose This Issue
 
 I chose this issue because it fits my current skills and learning goals. The main skills involved are Git, GitHub, reading a new project structure, searching a codebase, checking links, documenting results, and making a small focused pull request.
 
-This is a good third contribution because it is in a different repository from my earlier Roll20 and tldr-pages work. It gives me practice joining a new project, reading its documentation, and contributing to a public-service project where accuracy matters.
+This is a good third contribution because it is in a different repository from my earlier Roll20 and tldr-pages work. It gives me practice joining a new project, reading its documentation, finding the correct data file, and contributing to a public-service project where accuracy matters.
 
 I also chose this issue because it is beginner-friendly but still useful. Link inspection may look simple, but it requires careful checking. I need to avoid guessing, confirm the correct Tax-related files, test the links, and document what I changed.
 
 ### Initial Understanding
 
-My initial understanding is that the project contains government service links grouped by category. Since this issue is about Tax links, I expect there may be a data file, route, page, or service-list entry that stores Tax-related links.
+My initial understanding is that the project contains government service links grouped by category. Since this issue is about Tax links, I expected that there would be a data file, route, page, or service-list entry that stores Tax-related links.
 
 The likely solution is to:
 
@@ -1281,17 +1279,524 @@ The likely solution is to:
 2. Locate the files that contain Tax service links.
 3. Inspect each Tax link manually.
 4. Check whether the links are reachable, current, and clearly labeled.
-5. Update only the Tax-related entries that need correction.
-6. Keep the change small and easy for maintainers to review.
+5. Check whether each Tax service is in the correct subcategory.
+6. Update only the Tax-related entries that need correction.
+7. Keep the change small and easy for maintainers to review.
 
 ### Specific Files or Modules Likely Involved
 
-I have not inspected the full repository yet, so I will confirm the exact files in Phase II. Based on the issue title and the repository structure, the likely areas involved are:
+Before Phase II, I had not inspected the full repository yet, so I planned to confirm the exact files during research. Based on the issue title, the likely areas involved were:
 
 ```text
 src/
-public/
 docs/
+public/
 data or content files that store service links
 Tax-related service listing files
 Tax-related page or route files
+```
+
+During Phase II, I planned to search the repository for terms such as:
+
+```text
+tax
+taxes
+bir
+revenue
+internal revenue
+eBIR
+service
+services
+links
+```
+
+The most likely file to modify would be a data or content file that stores Tax-related government service links, not core application logic.
+
+### Related Documentation and Maintainer Context
+
+Project repository:
+
+```text
+https://github.com/bettergovph/bettergov
+```
+
+Issue selected:
+
+```text
+https://github.com/bettergovph/bettergov/issues/687
+```
+
+Project fork:
+
+```text
+https://github.com/Frehmand/bettergov
+```
+
+I also planned to review the README and project setup files before editing so I could follow the repository’s expected workflow.
+
+### What “Fixed” Looks Like
+
+I will consider this issue fixed when:
+
+- I locate the Tax-related links in the repository.
+- I inspect the Tax links manually.
+- I identify whether each Tax link is working, outdated, redirected, duplicated, unclear, or categorized incorrectly.
+- I update any Tax entry that clearly needs correction.
+- I do not change unrelated service categories.
+- I do not rewrite unrelated project structure or styling.
+- The change is limited to the Tax-link inspection task.
+- I document what I checked and what I changed.
+- I run the relevant validation checks.
+- I open a pull request that explains the issue, the inspection process, and the final result.
+
+### Expected Challenges
+
+One challenge may be finding the exact file where Tax links are stored. The project may keep service links in a data file, a content file, or a page component, so I will need to search carefully.
+
+Another challenge may be deciding whether a link is truly broken or only temporarily unavailable. I will avoid changing a link unless I can confirm a better current source.
+
+A third challenge may be keeping the pull request small. Since the issue is only about Tax links, I should not edit unrelated categories, formatting, or design.
+
+A fourth challenge may be writing the pull request in my own voice. After my previous tldr-pages PR feedback, I want to make sure my issue comment and PR description are simple, clear, and based on my own inspection work.
+
+### Communication
+
+Before starting implementation, I commented on the issue to introduce myself and ask whether the issue was still available.
+
+My comment was:
+
+```text
+Hi, I am interested in working on this issue. I would like to inspect the Tax links and make a small update if I find broken, outdated, or unclear links. Is this issue still available?
+```
+
+This step is important because it gives maintainers a chance to confirm that the issue is still available before I make changes.
+
+### Next Steps
+
+For Phase II, I will:
+
+1. Fork the repository to my GitHub account.
+2. Clone my fork locally.
+3. Add the upstream remote.
+4. Create a working branch for issue #687.
+5. Read the README and project setup information.
+6. Search the repository for Tax-related files and links.
+7. Inspect the current Tax service entries.
+8. Document expected vs. actual behavior for any broken or unclear entries.
+9. Identify the exact files involved.
+10. Write a clear implementation plan before making changes.
+
+---
+
+## Phase II: Research
+
+### Status
+
+Phase II Complete
+
+### Repository
+
+Repository Name: bettergovph/bettergov
+
+Repository Link: https://github.com/bettergovph/bettergov
+
+My Fork: https://github.com/Frehmand/bettergov
+
+### Issue
+
+Issue Number: #687
+
+Issue Title: [TASK]: Inspect Tax links
+
+Issue Link: https://github.com/bettergovph/bettergov/issues/687
+
+### Working Branch
+
+Working branch:
+
+```text
+inspect-tax-links-687
+```
+
+Branch link:
+
+```text
+https://github.com/Frehmand/bettergov/tree/inspect-tax-links-687
+```
+
+### Environment Setup
+
+For this contribution, I set up the BetterGovPH project locally by forking the upstream repository, cloning my fork, adding the upstream remote, creating a working branch, and pushing the branch to my fork.
+
+Commands used:
+
+```bash
+cd /c/Users/mfreh
+git clone https://github.com/Frehmand/bettergov.git
+cd bettergov
+git remote add upstream https://github.com/bettergovph/bettergov.git
+git remote -v
+git checkout -b inspect-tax-links-687
+git push origin inspect-tax-links-687
+```
+
+The branch was created and pushed successfully to my fork.
+
+The remotes were confirmed as:
+
+```text
+origin    https://github.com/Frehmand/bettergov.git
+upstream  https://github.com/bettergovph/bettergov.git
+```
+
+### Setup Approach
+
+My setup approach was:
+
+- Fork the upstream BetterGovPH repository.
+- Clone my fork locally.
+- Add the original repository as `upstream`.
+- Create a focused branch for issue #687.
+- Reviewed the repository structure before editing.
+- Searched for Tax-related files and links.
+- Identified the exact file that stores Tax services.
+- Inspected the Tax service entries before making changes.
+- Kept the future change small and limited to the Tax issue.
+
+### Environment Setup Challenges and Resolutions
+
+One challenge was that this was a new repository for me, so I did not know where the Tax links were stored at first. I resolved this by searching the repository with several related keywords instead of guessing.
+
+Another challenge was that the repository contains many data files and service categories. I needed to avoid editing unrelated data. I resolved this by narrowing the work to the Tax service file after the search showed that the main Tax service entries are stored in `src/data/services/tax.json`.
+
+A third challenge was making sure this contribution stays clearly my own work. Since my previous tldr-pages contribution received feedback that it looked AI generated, I planned to keep this contribution simple, specific, and based on what I personally inspected in the repository.
+
+### Repository Structure Reviewed
+
+I reviewed the repository structure and searched the areas most likely to contain service links.
+
+Likely areas inspected:
+
+```text
+src/
+docs/
+public/
+scripts/
+README.md
+package.json
+```
+
+The search showed that the main Tax service file is:
+
+```text
+src/data/services/tax.json
+```
+
+### Search Commands Used
+
+I searched the repository for Tax-related terms using these commands:
+
+```bash
+grep -Rni "tax" src docs public scripts
+grep -Rni "taxes" src docs public scripts
+grep -Rni "bir" src docs public scripts
+grep -Rni "revenue" src docs public scripts
+grep -Rni "internal revenue" src docs public scripts
+grep -Rni "eBIR" src docs public scripts
+```
+
+These searches found several related files, but the most important result was:
+
+```text
+src/data/services/tax.json
+```
+
+The search also found related supporting files:
+
+```text
+src/data/service_categories.json
+src/data/seo-metadata.json
+src/data/navigation.ts
+public/llms.txt
+public/sitemap.xml
+```
+
+### Reproduction / Inspection Steps
+
+I reproduced the issue by locating and inspecting the Tax service data.
+
+Steps another person can follow:
+
+1. Open the BetterGovPH repository:
+
+```text
+https://github.com/bettergovph/bettergov
+```
+
+2. Clone a fork of the repository locally.
+
+3. Create a branch for issue #687:
+
+```bash
+git checkout -b inspect-tax-links-687
+```
+
+4. Search for Tax-related terms:
+
+```text
+tax
+taxes
+bir
+revenue
+internal revenue
+eBIR
+```
+
+5. Locate the main Tax service file:
+
+```text
+src/data/services/tax.json
+```
+
+6. Open the file:
+
+```bash
+cat src/data/services/tax.json
+```
+
+7. Review each Tax service entry.
+
+8. Check each `url` field in a browser.
+
+9. Check whether each service label matches the linked page.
+
+10. Check whether each subcategory matches the service purpose.
+
+11. Record any broken, outdated, duplicated, unclear, or incorrectly categorized Tax service entry.
+
+### Expected Behavior
+
+Tax-related service entries should take users to correct, current, and useful government service pages.
+
+A correct Tax service entry should:
+
+- Have a working URL.
+- Point to the correct government service or related official service.
+- Have a clear service label.
+- Use the correct Tax subcategory.
+- Not be duplicated unnecessarily.
+- Fit the project’s existing JSON format.
+- Help users find the intended service without confusion.
+
+### Actual Behavior
+
+The Tax service entries are stored in:
+
+```text
+src/data/services/tax.json
+```
+
+The file contains multiple Tax-related services, including:
+
+- Tax Directory
+- BIR Tax Clearance Certificate
+- File Tax Returns and Pay Taxes Online
+- Register for a Taxpayer Identification Number
+- Report Gross Monthly Sales of Business Taxpayers
+- Electronic Tax Return Preparation/Filing Certification
+- Excise Tax Register Book submission
+- BIR complaint services
+
+During inspection, I found one entry that may need a small correction:
+
+```text
+File Tax Returns and Pay Taxes Online
+```
+
+This service currently appears under the `Register` subcategory, but the service is about filing and paying taxes. This may be clearer under the `File Taxes` subcategory.
+
+### Specific Files or Modules Involved
+
+The main file involved is:
+
+```text
+src/data/services/tax.json
+```
+
+This file contains the Tax service entries and URLs for issue #687.
+
+Related files found during search:
+
+```text
+src/data/service_categories.json
+src/data/seo-metadata.json
+src/data/navigation.ts
+public/llms.txt
+public/sitemap.xml
+```
+
+I expect the final Phase III change to be in `src/data/services/tax.json`, because that file contains the actual Tax service entries.
+
+### Root Cause
+
+The likely root cause is data/category drift in the Tax service list.
+
+Government services and public-service directories can change over time. A service entry may still have a working URL but be placed under the wrong subcategory, which makes it harder for users to find the correct service.
+
+This issue is not an algorithm bug. It is a content and data quality task. The likely problem is that one or more Tax-related service entries may need verification, correction, or clearer categorization.
+
+### UMPIRE Plan
+
+#### U — Understand
+
+I read issue #687 and identified the task: inspect Tax links in the BetterGovPH project.
+
+I understood that this is a link-inspection and content/data quality task, not a large coding feature. The goal was to check whether Tax-related links are accurate, working, clear, and useful for users.
+
+This matters because BetterGovPH helps users find government-service information. If Tax links are broken, outdated, duplicated, unclear, or categorized incorrectly, users may have trouble reaching the correct public service.
+
+#### M — Match
+
+I matched the issue to the Tax service data file:
+
+```text
+src/data/services/tax.json
+```
+
+I also matched the issue to related Tax service categories, including:
+
+```text
+calculator
+certificates
+register
+file-taxes
+complaints
+```
+
+The most relevant entry found during inspection was:
+
+```text
+File Tax Returns and Pay Taxes Online
+```
+
+because it appears to be a filing/payment service but is currently categorized under `register`.
+
+#### P — Plan
+
+My plan was to keep the work small and focused.
+
+For Phase III, I planned to:
+
+1. Inspect each Tax service URL manually.
+2. Confirm whether the service labels match the URLs.
+3. Confirm whether each Tax service is in the correct subcategory.
+4. Update only the Tax entry that clearly needs correction.
+5. Avoid unrelated formatting, styling, or category changes.
+6. Run `git diff` to confirm the change is small.
+7. Validate the JSON formatting before committing.
+
+#### I — Implement
+
+For Phase III, I planned to edit only:
+
+```text
+src/data/services/tax.json
+```
+
+If the inspection confirms the mismatch, I planned to update the `File Tax Returns and Pay Taxes Online` entry from:
+
+```json
+"subcategory": {
+  "name": "Register",
+  "slug": "register"
+}
+```
+
+to:
+
+```json
+"subcategory": {
+  "name": "File Taxes",
+  "slug": "file-taxes"
+}
+```
+
+I planned not to change unrelated Tax entries unless I found a clear issue.
+
+#### R — Review
+
+Before committing, I planned to review the diff with:
+
+```bash
+git diff
+```
+
+I planned to confirm:
+
+- Only `src/data/services/tax.json` changed.
+- Only the intended Tax service entry changed.
+- No unrelated formatting changes were made.
+- The JSON format remains valid.
+- The subcategory name and slug match existing project categories.
+
+#### E — Evaluate
+
+I planned to validate the work by:
+
+- Opening the Tax links manually in a browser.
+- Checking that the edited service still points to the correct URL.
+- Checking that the service is now grouped under the clearer Tax subcategory.
+- Running `git diff --check`.
+- Running a JSON validation command if needed.
+- Documenting any testing limitations honestly.
+
+### Edge Cases Considered
+
+I considered these edge cases:
+
+- A link may redirect but still be valid.
+- A link may work but be placed in the wrong subcategory.
+- A Tax service may fit more than one subcategory.
+- A duplicate-looking link may be intentional.
+- A government website may be temporarily unavailable.
+- A small category fix is safer than a large rewrite.
+- If I cannot confirm a change, I should not guess.
+
+### Investigative Depth
+
+For investigative depth, I went beyond only reading the issue title.
+
+I cloned the repository, created a working branch, searched multiple Tax-related terms, found the main Tax service file, opened the file, and inspected the actual service entries.
+
+The search confirmed that `src/data/services/tax.json` is the main file for this issue. Related files exist for navigation, SEO, sitemap, and category metadata, but the actual Tax service entries are stored in the Tax services JSON file.
+
+### Final Phase II Plan
+
+My final plan for Phase III was:
+
+1. Inspect all URLs in `src/data/services/tax.json`.
+2. Confirm whether the `File Tax Returns and Pay Taxes Online` entry should be under `File Taxes`.
+3. Edit only `src/data/services/tax.json` if the mismatch was confirmed.
+4. Run `git diff`.
+5. Run `git diff --check`.
+6. Validate JSON formatting.
+7. Commit the change with a clear message.
+8. Push the branch to my fork.
+9. Open a pull request to the upstream BetterGovPH repository.
+10. Write the PR description in my own simple words and explain exactly what I checked.
+
+---
+
+## Phase III: Build
+
+### Status
+
+Not Started
+
+---
+
+## Phase IV: Submit & Iterate
+
+### Status
+
+Not Started
