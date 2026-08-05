@@ -1789,14 +1789,244 @@ My final plan for Phase III was:
 
 ## Phase III: Build
 
-### Status
-
-Not Started
-
----
-
-## Phase IV: Submit & Iterate
 
 ### Status
 
-Not Started
+Phase III Complete
+
+### Repository
+
+Repository Name: bettergovph/bettergov
+
+Repository Link: https://github.com/bettergovph/bettergov
+
+My Fork: https://github.com/Frehmand/bettergov
+
+### Issue
+
+Issue Number: #687
+
+Issue Title: [TASK]: Inspect Tax links
+
+Issue Link: https://github.com/bettergovph/bettergov/issues/687
+
+### Pull Request
+
+Pull Request: https://github.com/bettergovph/bettergov/pull/727
+
+Current PR Status:
+
+```text
+Awaiting maintainer workflow approval and review
+```
+
+The pull request is open against the upstream BetterGovPH repository. The repository requires maintainer approval before some workflows can run, and at least one approving review is required before the PR can be merged.
+
+### Working Branch
+
+Working branch:
+
+```text
+inspect-tax-links-687
+```
+
+Branch link:
+
+```text
+https://github.com/Frehmand/bettergov/tree/inspect-tax-links-687
+```
+
+### Implementation Summary
+
+I implemented a small Tax service category correction for issue #687.
+
+The change was made in:
+
+```text
+src/data/services/tax.json
+```
+
+While inspecting the Tax service entries, I found that the service named:
+
+```text
+File Tax Returns and Pay Taxes Online
+```
+
+was listed under the `Register` subcategory. Since this service is about filing and paying taxes, I moved it to the `File Taxes` subcategory.
+
+### What Changed
+
+I changed the subcategory for the `File Tax Returns and Pay Taxes Online` entry.
+
+Before:
+
+```json
+"subcategory": {
+  "name": "Register",
+  "slug": "register"
+}
+```
+
+After:
+
+```json
+"subcategory": {
+  "name": "File Taxes",
+  "slug": "file-taxes"
+}
+```
+
+This makes the service category clearer and more consistent with the purpose of the service.
+
+### File Changed
+
+The only file changed was:
+
+```text
+src/data/services/tax.json
+```
+
+No unrelated files, formatting changes, styling changes, or code changes were included.
+
+### Diff Scope
+
+The final diff was intentionally small.
+
+The change only updated two values:
+
+```diff
+-      "name": "Register",
+-      "slug": "register"
++      "name": "File Taxes",
++      "slug": "file-taxes"
+```
+
+This kept the pull request focused on the Tax-link inspection task.
+
+### Validation and Testing
+
+I validated the change before committing.
+
+First, I checked the diff with:
+
+```bash
+git diff
+```
+
+The diff showed only the intended Tax service category change.
+
+Then I validated that the JSON file was still valid by running:
+
+```bash
+python -m json.tool src/data/services/tax.json > /dev/null
+```
+
+This command returned no output, which means the JSON file parsed successfully.
+
+I also ran:
+
+```bash
+git diff --check
+```
+
+This returned no output, which means Git did not detect whitespace errors.
+
+### Manual Review
+
+I manually reviewed the changed Tax service entry and confirmed:
+
+- The service name is still `File Tax Returns and Pay Taxes Online`.
+- The URL remained unchanged.
+- The category remained `Tax`.
+- The subcategory was changed from `Register` to `File Taxes`.
+- The slug was changed from `register` to `file-taxes`.
+- The JSON format remained valid.
+- No unrelated Tax entries were changed.
+
+### Commands Used
+
+The main commands used during Phase III were:
+
+```bash
+git diff
+python -m json.tool src/data/services/tax.json > /dev/null
+git diff --check
+git status
+git add src/data/services/tax.json
+git commit -m "Move tax filing service to file taxes category"
+git push origin inspect-tax-links-687
+```
+
+### Pull Request Description
+
+I opened pull request #727 using the project’s PR template.
+
+In the PR description, I marked the PR type as:
+
+```text
+Change
+```
+
+I explained that I moved the `File Tax Returns and Pay Taxes Online` service from the `Register` subcategory to the `File Taxes` subcategory because the service is about filing and paying taxes.
+
+I also included the issue reference:
+
+```text
+This PR closes #687
+```
+
+### AI Disclosure
+
+The project PR template asked whether the contribution was assisted by an AI agent.
+
+I disclosed that the contribution was assisted by ChatGPT.
+
+This was important because I wanted to be honest and follow the project’s PR template clearly.
+
+### Challenges Faced
+
+One challenge was making sure the slug used the correct lowercase format. I first noticed the slug could easily be typed incorrectly as:
+
+```text
+file-Taxes
+```
+
+I corrected it to the proper lowercase slug:
+
+```text
+file-taxes
+```
+
+Another challenge was making sure the JSON comma placement stayed correct. Since the `subcategory` block is followed by the `createdAt` field, the comma after the closing brace was required.
+
+A third challenge was keeping the pull request small. Since the issue was about inspecting Tax links, I avoided editing unrelated services or changing formatting outside the one Tax service entry.
+
+### Engineering Judgment
+
+I kept the change limited to one Tax service entry because the goal was to make a small, clear, reviewable improvement.
+
+I did not change the URL because the issue I found was not a broken URL. The issue was that the service was placed under a less accurate subcategory.
+
+I chose `File Taxes` because the service title says:
+
+```text
+File Tax Returns and Pay Taxes Online
+```
+
+That service purpose matches the existing `file-taxes` subcategory better than the `register` subcategory.
+
+### Current Status
+
+The pull request has been opened:
+
+```text
+https://github.com/bettergovph/bettergov/pull/727
+```
+
+Current status:
+
+```text
+Awaiting maintainer workflow approval and review
+```
+
+At the time of this Phase III update, GitHub showed that maintainer approval is required before some workflows can run, and an approving review is required before the PR can be merged.
